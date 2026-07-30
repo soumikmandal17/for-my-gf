@@ -295,11 +295,16 @@ const fetchData = () => {
 };
 
 // Run fetch and animation in sequence
+// Run fetch and animation in sequence (FIXED)
 const resolveFetch = () => {
   return new Promise((resolve, reject) => {
     fetchData();
-    resolve("Fetch done!");
+    setTimeout(() => {
+      resolve("Fetch done!");
+    }, 200); // Gives the data 200ms to safely load first
   });
 };
 
-resolveFetch().then(animationTimeline());
+resolveFetch().then(() => {
+  animationTimeline();
+});
