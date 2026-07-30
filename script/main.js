@@ -1,6 +1,5 @@
 // Animation Timeline
 const animationTimeline = () => {
-  // Spit chars that needs to be animated individually
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
   const hbd = document.getElementsByClassName("wish-hbd")[0];
 
@@ -60,7 +59,6 @@ const animationTimeline = () => {
     .from(".three", 0.7, {
       opacity: 0,
       y: 10,
-      // scale: 0.7
     })
     .to(
       ".three",
@@ -87,16 +85,27 @@ const animationTimeline = () => {
       },
       0.05
     )
-    .to(".fake-btn", 0.1, {
-      backgroundColor: "rgb(127, 206, 248)",
-      /* MUSIC TRIGGER FIXED: Plays her favorite song when she clicks Send! */
-      onComplete: () => {
+    /* INTERACTION FIX: The timeline pauses right here until Rinka clicks 'Send' */
+    .addPause(null, () => {
+      const btn = document.querySelector(".fake-btn");
+      btn.style.cursor = "pointer";
+      
+      btn.addEventListener("click", () => {
+        // Trigger the music file on real user touch
         const music = document.getElementById("bg-music");
         if (music) {
-          music.volume = 0.6; // Sets comfortable 60% audio volume
-          music.play().catch(err => console.log("Audio play blocked by browser:", err));
+          music.volume = 0.6;
+          music.play().catch(err => console.log("Playback error:", err));
         }
-      }
+        
+        // Turn button blue and resume the timeline
+        TweenMax.to(".fake-btn", 0.1, {
+          backgroundColor: "rgb(127, 206, 248)",
+          onComplete: () => {
+            tl.play();
+          }
+        });
+      }, { once: true });
     })
     .to(
       ".four",
@@ -106,7 +115,7 @@ const animationTimeline = () => {
         opacity: 0,
         y: -150,
       },
-      "+=0.7"
+      "+=0.2"
     )
     .from(".idea-1", 0.7, ideaTextTrans)
     .to(".idea-1", 0.7, ideaTextTransLeave, "+=1.5")
@@ -213,7 +222,6 @@ const animationTimeline = () => {
       {
         opacity: 0,
         y: -50,
-        // scale: 0.3,
         rotation: 150,
         skewX: "30deg",
         ease: Elastic.easeOut.config(1, 0.5),
@@ -273,10 +281,8 @@ const animationTimeline = () => {
       "+=1"
     );
 
-  // Restart Animation on click
   const replyBtn = document.getElementById("replay");
   replyBtn.addEventListener("click", () => {
-    /* Restart music alongside animation replay */
     const music = document.getElementById("bg-music");
     if (music) {
       music.currentTime = 0;
@@ -286,7 +292,6 @@ const animationTimeline = () => {
   });
 };
 
-// Import the data to customize and insert them into page
 const fetchData = () => {
   fetch("customize.json")
     .then((data) => data.json())
@@ -305,7 +310,6 @@ const fetchData = () => {
     });
 };
 
-// Run fetch and animation in sequence
 const resolveFetch = () => {
   return new Promise((resolve, reject) => {
     fetchData();
