@@ -17,13 +17,12 @@ body {
 
 .container {
   height: 100vh;
-  width: 100%; /* FIXED: Was 100vh, causing layout clipping on widescreen monitors */
+  width: 100%;
   margin: 0 auto;
   text-align: center;
   visibility: hidden;
   position: relative;
   overflow: hidden;
-  /* Dreamy soft-focus lighting circle layout overlay */
   background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 80%);
 }
 
@@ -45,11 +44,7 @@ body {
   left: 0;
   right: 0;
   top: 20vh;
-}
-
-/* FIXED INITIAL ACCENT TRANSPARENCY: Prevents text elements from piling on screen instantly */
-.one, .two, .three, .four, .five, .six, .nine {
-  opacity: 0;
+  opacity: 0; /* FIXED: Keeps all stages fully invisible until GSAP animates them */
 }
 
 .one {
@@ -94,7 +89,7 @@ body {
   line-height: 1.4;
 }
 
-/* FIXED SPAN WRAPPER: Ensures typing layout works smoothly line by line */
+/* FIXED: Keeps characters hidden for the chatbox typing animation */
 .text-box span {
   visibility: hidden;
   display: inline-block;
@@ -117,7 +112,7 @@ body {
   left: 0;
   right: 0;
   color: #5c061c;
-  opacity: 0; /* FIXED: Keeps paragraph components completely invisible until active */
+  opacity: 0; /* FIXED: Prevents background paragraph stacking */
 }
 
 .idea-3 strong {
@@ -137,11 +132,6 @@ body {
 .idea-6 span,
 .wish-hbd span {
   display: inline-block;
-}
-
-/* FIXED INITIAL LETTER TIMELINE ACCENT VALUES */
-.idea-6 span, .wish-hbd span {
-  opacity: 0;
 }
 
 .idea-6 span {
@@ -197,65 +187,25 @@ body {
   z-index: -1;
 }
 
-.eight svg:nth-child(1) {
-  top: 7vh;
-  left: 5vw;
-  fill: #bd6ecf;
-}
-
-.eight svg:nth-child(2) {
-  top: 23vh;
-  left: 35vw;
-  fill: #7dd175;
-}
-
-.eight svg:nth-child(3) {
-  top: 33vh;
-  left: 23vw;
-  fill: #349d8b;
-}
-
-.eight svg:nth-child(4) {
-  top: 43vh;
-  left: 57vw;
-  fill: #347a9d;
-}
-
-.eight svg:nth-child(5) {
-  top: 68vh;
-  left: 77vw;
-  fill: #c66053;
-}
-
-.eight svg:nth-child(6) {
-  top: 42vh;
-  left: 77vw;
-  fill: #bfaa40;
-}
-
-.eight svg:nth-child(7) {
-  top: 68vh;
-  left: 83vw;
-  fill: #e3bae8;
-}
-
-.eight svg:nth-child(8) {
-  top: 86vh;
-  left: 37vw;
-  fill: #8762cb;
-}
-
-.eight svg:nth-child(9) {
-  top: 94vh;
-  left: 87vw;
-  fill: #9a90da;
-}
+.eight svg:nth-child(1) { top: 7vh; left: 5vw; fill: #bd6ecf; }
+.eight svg:nth-child(2) { top: 23vh; left: 35vw; fill: #7dd175; }
+.eight svg:nth-child(3) { top: 33vh; left: 23vw; fill: #349d8b; }
+.eight svg:nth-child(4) { top: 43vh; left: 57vw; fill: #347a9d; }
+.eight svg:nth-child(5) { top: 68vh; left: 7vw; fill: #c66053; }
+.eight svg:nth-child(6) { top: 42vh; left: 77vw; fill: #bfaa40; }
+.eight svg:nth-child(7) { top: 68vh; left: 83vw; fill: #e3bae8; }
+.eight svg:nth-child(8) { top: 86vh; left: 37vw; fill: #8762cb; }
+.eight svg:nth-child(9) { top: 94vh; left: 87vw; fill: #9a90da; }
 
 .wish-hbd {
   font-size: 3em;
   margin: 15px 0 0;
   color: #d11946;
   font-weight: bold;
+}
+
+.wish-hbd span {
+  opacity: 0; /* FIXED: Keeps final wish letters hidden until scatter phase */
 }
 
 .wish h5 {
@@ -283,7 +233,6 @@ body {
   color: #d11946;
 }
 
-/* Beautiful moving background animation effect */
 @keyframes romanticGlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -291,67 +240,13 @@ body {
 }
 
 /* Media Queries */
-@media screen and (max-height: 1000px) {
-  .six .hat {
-    left: 40%;
-  }
-}
-
-@media screen and (max-height: 800px) {
-  .six .hat {
-    left: 37%;
-  }
-}
-
-@media screen and (max-height: 700px) {
-  .six .hat {
-    left: 32%;
-  }
-}
-
-@media screen and (max-height: 850px) and (max-width: 450px) {
-  .six .hat {
-    left: 32%;
-  }
-}
-
 @media screen and (max-width: 500px) {
-  .container {
-    width: 100%;
-  }
-
-  .four .text-box {
-    width: 90%;
-  }
-
-  .text-box .fake-btn {
-    right: 5px;
-    bottom: -38px;
-  }
-
-  .idea-5 span {
-    display: block;
-  }
-
-  .idea-6 span {
-    font-size: 10rem;
-  }
-
-  .six .hat {
-    width: 50px;
-    top: -20px;
-  }
-
-  .wish-hbd {
-    font-size: 2.3em;
-  }
-
-  .wish h5 {
-    font-size: 1.4rem;
-  }
-
-  .nine p {
-    font-size: 1.5rem;
-    font-weight: lighter;
-  }
+  .four .text-box { width: 90%; }
+  .text-box .fake-btn { right: 5px; bottom: -38px; }
+  .idea-5 span { display: block; }
+  .idea-6 span { font-size: 10rem; }
+  .six .hat { width: 50px; top: -20px; }
+  .wish-hbd { font-size: 2.3em; }
+  .wish h5 { font-size: 1.4rem; }
+  .nine p { font-size: 1.5rem; }
 }
