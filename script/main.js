@@ -1,5 +1,6 @@
 // Animation Timeline
 const animationTimeline = () => {
+  // Grabs single element nodes cleanly to prevent internal script crashes
   const textBoxChars = document.querySelector(".hbd-chatbox");
   const hbd = document.querySelector(".wish-hbd");
 
@@ -89,7 +90,7 @@ const animationTimeline = () => {
     )
     .to(".fake-btn", 0.1, {
       backgroundColor: "rgb(127, 206, 248)",
-    }, "+=1") /* Runs straight past the chat box smoothly without locking up */
+    }, "+=1") 
     .to(
       ".four",
       0.5,
