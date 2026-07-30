@@ -89,6 +89,14 @@ const animationTimeline = () => {
     )
     .to(".fake-btn", 0.1, {
       backgroundColor: "rgb(127, 206, 248)",
+      /* MUSIC TRIGGER FIXED: Plays her favorite song when she clicks Send! */
+      onComplete: () => {
+        const music = document.getElementById("bg-music");
+        if (music) {
+          music.volume = 0.6; // Sets comfortable 60% audio volume
+          music.play().catch(err => console.log("Audio play blocked by browser:", err));
+        }
+      }
     })
     .to(
       ".four",
@@ -265,12 +273,15 @@ const animationTimeline = () => {
       "+=1"
     );
 
-  // tl.seek("currentStep");
-  // tl.timeScale(2);
-
   // Restart Animation on click
   const replyBtn = document.getElementById("replay");
   replyBtn.addEventListener("click", () => {
+    /* Restart music alongside animation replay */
+    const music = document.getElementById("bg-music");
+    if (music) {
+      music.currentTime = 0;
+      music.play().catch(e => console.log(e));
+    }
     tl.restart();
   });
 };
@@ -295,13 +306,12 @@ const fetchData = () => {
 };
 
 // Run fetch and animation in sequence
-// Run fetch and animation in sequence (FIXED)
 const resolveFetch = () => {
   return new Promise((resolve, reject) => {
     fetchData();
     setTimeout(() => {
       resolve("Fetch done!");
-    }, 200); // Gives the data 200ms to safely load first
+    }, 200); 
   });
 };
 
