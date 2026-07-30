@@ -87,21 +87,37 @@ body {
   text-align: left;
   color: #444;
   line-height: 1.4;
+  padding-right: 70px; /* FIXED: Prevents text from printing underneath the send button */
 }
 
 .text-box span {
   visibility: hidden;
 }
 
+/* PREMIUM INTERACTIVE BUTTON ADJUSTMENTS */
 .text-box .fake-btn {
   position: absolute;
-  right: 10px;
-  bottom: 10px;
+  right: 12px;
+  bottom: 12px;
   color: #fff;
   background-color: #ff477e;
-  padding: 6px 12px;
+  padding: 8px 18px;
   border-radius: 20px;
   font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 71, 126, 0.4);
+  transition: all 0.2s ease-in-out;
+}
+
+.text-box .fake-btn:hover {
+  background-color: #ff1456;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(255, 71, 126, 0.5);
+}
+
+.text-box .fake-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 5px rgba(255, 71, 126, 0.3);
 }
 
 .five p {
@@ -210,7 +226,7 @@ body {
 
 .eight svg:nth-child(5) {
   top: 68vh;
-  left: 7vw;
+  left: 77vw;
   fill: #c66053;
 }
 
@@ -309,11 +325,12 @@ body {
 
   .four .text-box {
     width: 90%;
+    padding-bottom: 60px; /* FIXED: Adds clean spacer padding room for mobile button alignment */
   }
 
   .text-box .fake-btn {
-    right: 5px;
-    bottom: -38px;
+    right: 15px;
+    bottom: 12px; /* FIXED: Keeps button nested inside the card box boundaries safely */
   }
 
   .idea-5 span {
