@@ -1,15 +1,20 @@
 // Animation Timeline
 const animationTimeline = () => {
+  /* FIXED: Added [0] so JavaScript grabs the actual single element rather than a list array */
   const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
   const hbd = document.getElementsByClassName("wish-hbd")[0];
 
-  textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
-    .split("")
-    .join("</span><span>")}</span`;
+  if (textBoxChars) {
+    textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
+      .split("")
+      .join("</span><span>")}</span`;
+  }
 
-  hbd.innerHTML = `<span>${hbd.innerHTML
-    .split("")
-    .join("</span><span>")}</span`;
+  if (hbd) {
+    hbd.innerHTML = `<span>${hbd.innerHTML
+      .split("")
+      .join("</span><span>")}</span`;
+  }
 
   const ideaTextTrans = {
     opacity: 0,
@@ -85,27 +90,26 @@ const animationTimeline = () => {
       },
       0.05
     )
-    /* INTERACTION FIX: The timeline pauses right here until Rinka clicks 'Send' */
+    /* INTERACTION HOOK: Pauses until a manual tap plays the music file path */
     .addPause(null, () => {
       const btn = document.querySelector(".fake-btn");
-      btn.style.cursor = "pointer";
-      
-      btn.addEventListener("click", () => {
-        // Trigger the music file on real user touch
-        const music = document.getElementById("bg-music");
-        if (music) {
-          music.volume = 0.6;
-          music.play().catch(err => console.log("Playback error:", err));
-        }
-        
-        // Turn button blue and resume the timeline
-        TweenMax.to(".fake-btn", 0.1, {
-          backgroundColor: "rgb(127, 206, 248)",
-          onComplete: () => {
-            tl.play();
+      if (btn) {
+        btn.style.cursor = "pointer";
+        btn.addEventListener("click", () => {
+          const music = document.getElementById("bg-music");
+          if (music) {
+            music.volume = 0.6;
+            music.play().catch(err => console.log("Playback interaction flag:", err));
           }
-        });
-      }, { once: true });
+          
+          TweenMax.to(".fake-btn", 0.1, {
+            backgroundColor: "rgb(127, 206, 248)",
+            onComplete: () => {
+              tl.play();
+            }
+          });
+        }, { once: true });
+      }
     })
     .to(
       ".four",
@@ -282,14 +286,16 @@ const animationTimeline = () => {
     );
 
   const replyBtn = document.getElementById("replay");
-  replyBtn.addEventListener("click", () => {
-    const music = document.getElementById("bg-music");
-    if (music) {
-      music.currentTime = 0;
-      music.play().catch(e => console.log(e));
-    }
-    tl.restart();
-  });
+  if (replyBtn) {
+    replyBtn.addEventListener("click", () => {
+      const music = document.getElementById("bg-music");
+      if (music) {
+        music.currentTime = 0;
+        music.play().catch(e => console.log(e));
+      }
+      tl.restart();
+    });
+  }
 };
 
 const fetchData = () => {
@@ -298,12 +304,13 @@ const fetchData = () => {
     .then((data) => {
       Object.keys(data).map((customData) => {
         if (data[customData] !== "") {
-          if (customData === "imagePath") {
-            document
-              .getElementById(customData)
-              .setAttribute("src", data[customData]);
-          } else {
-            document.getElementById(customData).innerText = data[customData];
+          const element = document.getElementById(customData);
+          if (element) {
+            if (customData === "imagePath") {
+              element.setAttribute("src", data[customData]);
+            } else {
+              element.innerText = data[customData];
+            }
           }
         }
       });
@@ -311,7 +318,7 @@ const fetchData = () => {
 };
 
 const resolveFetch = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     fetchData();
     setTimeout(() => {
       resolve("Fetch done!");
