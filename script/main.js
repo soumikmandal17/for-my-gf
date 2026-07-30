@@ -1,8 +1,8 @@
 // Animation Timeline
 const animationTimeline = () => {
-  /* FIXED: Added [0] so JavaScript grabs the actual single element rather than a list array */
-  const textBoxChars = document.getElementsByClassName("hbd-chatbox")[0];
-  const hbd = document.getElementsByClassName("wish-hbd")[0];
+  /* FIXED: Changed to querySelector so it grabs the actual single element containers and doesn't crash */
+  const textBoxChars = document.querySelector(".hbd-chatbox");
+  const hbd = document.querySelector(".wish-hbd");
 
   if (textBoxChars) {
     textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
@@ -90,18 +90,20 @@ const animationTimeline = () => {
       },
       0.05
     )
-    /* INTERACTION HOOK: Pauses until a manual tap plays the music file path */
+    /* INTERACTION CAPTURE: Page will pause here and wait for Rinka to tap Send */
     .addPause(null, () => {
       const btn = document.querySelector(".fake-btn");
       if (btn) {
         btn.style.cursor = "pointer";
         btn.addEventListener("click", () => {
+          // Play the music tracking file
           const music = document.getElementById("bg-music");
           if (music) {
             music.volume = 0.6;
-            music.play().catch(err => console.log("Playback interaction flag:", err));
+            music.play().catch(err => console.log("Audio connection unblock event:", err));
           }
           
+          // Animate button push feedback state and resume timeline loop
           TweenMax.to(".fake-btn", 0.1, {
             backgroundColor: "rgb(127, 206, 248)",
             onComplete: () => {
