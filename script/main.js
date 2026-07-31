@@ -3,16 +3,20 @@ const animationTimeline = () => {
   const textBoxChars = document.querySelector(".hbd-chatbox");
   const hbd = document.querySelector(".wish-hbd");
 
+  // FIXED: Replaced .split("") with Array.from() to safely process complex emojis
   if (textBoxChars) {
-    textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML
-      .split("")
-      .join("</span><span>")}</span`;
+    const charsArray = Array.from(textBoxChars.innerHTML.trim());
+    textBoxChars.innerHTML = charsArray
+      .map(char => `<span>${char}</span>`)
+      .join("");
   }
 
+  // FIXED: Replaced .split("") with Array.from() here as well to support emojis in titles
   if (hbd) {
-    hbd.innerHTML = `<span>${hbd.innerHTML
-      .split("")
-      .join("</span><span>")}</span`;
+    const hbdArray = Array.from(hbd.innerHTML.trim());
+    hbd.innerHTML = hbdArray
+      .map(char => `<span>${char}</span>`)
+      .join("");
   }
 
   const ideaTextTrans = {
