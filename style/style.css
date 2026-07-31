@@ -134,7 +134,7 @@ body {
   text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.5);
 }
 
-/* FIXED & CENTERED: Pins the final reveal block precisely in the center of the monitor viewport */
+/* FIXED & CENTERED: Pins the final reveal block precisely in the center of the viewport */
 .container div.six {
   position: absolute;
   top: 50% !important;
@@ -148,31 +148,31 @@ body {
   z-index: 1;
 }
 
-/* FIXED LOVE SHAPE: Formats her photo into fixed dimensions and clips it into a smooth heart shape */
+/* FIXED LOVE SHAPE (LARGER): Formats her photo into stable 340px dimensions and clips it into a crisp heart */
 .six img {
   display: inline-block;
-  width: 250px;
-  height: 250px;
+  width: 340px;
+  height: 340px;
   object-fit: cover;
   border-radius: 0;
   border: none;
   box-shadow: none;
-  clip-path: path("M 125,40 C 125,40 100,0 55,0 C 20,0 0,28 0,63 C 0,115 50,150 125,215 C 200,150 250,115 250,63 C 250,28 230,0 195,0 C 150,0 125,40 125,40 Z");
+  clip-path: path("M 170,54.4 C 170,54.4 136,0 74.8,0 C 27.2,0 0,38.08 0,85.68 C 0,156.4 68,204 170,292.4 C 272,204 340,156.4 340,85.68 C 340,38.08 312.8,0 265.2,0 C 204,0 170,54.4 170,54.4 Z");
   margin-bottom: 15px;
   position: relative;
   z-index: 2; /* Sits on top of the glowing aura trail */
 }
 
-/* NEW: Injects a soft, pulsing romantic aura trail shaped exactly like a matching heart */
+/* PULSING ROMANTIC AURA: Injects a soft aura background shadow that matches the 340px heart shapes */
 .six::before {
   content: "";
   position: absolute;
   top: 0;
-  width: 250px;
-  height: 250px;
-  clip-path: path("M 125,40 C 125,40 100,0 55,0 C 20,0 0,28 0,63 C 0,115 50,150 125,215 C 200,150 250,115 250,63 C 250,28 230,0 195,0 C 150,0 125,40 125,40 Z");
+  width: 340px;
+  height: 340px;
+  clip-path: path("M 170,54.4 C 170,54.4 136,0 74.8,0 C 27.2,0 0,38.08 0,85.68 C 0,156.4 68,204 170,292.4 C 272,204 340,156.4 340,85.68 C 340,38.08 312.8,0 265.2,0 C 204,0 170,54.4 170,54.4 Z");
   background: radial-gradient(circle, #ff477e 20%, #d11946 80%);
-  filter: blur(15px); /* Smooth neon cloud fog glow edge */
+  filter: blur(20px); /* Neon fog glow effect */
   opacity: 0.75;
   z-index: 1; /* Slips backward directly under her portrait image */
   pointer-events: none;
@@ -184,23 +184,38 @@ body {
   display: none;
 }
 
+/* MINI FLOATING CIRCLES: Styles her floating pop images into sweet mini-bubbles */
 .baloons img {
   display: inline-block;
   position: absolute;
-  width: 200px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ff477e;
+  box-shadow: 0 5px 15px rgba(209, 25, 70, 0.2);
 }
 
-.baloons img:nth-child(even) {
-  left: 10%;
-}
-
-.baloons img:nth-child(odd) {
-  right: 10%;
-}
-
-.baloons img:nth-child(3n + 0) {
-  left: 30%;
-}
+/* Distributes all 19 floating layers across random horizontal screen paths */
+.baloons img:nth-child(1)  { left: 5vw; }
+.baloons img:nth-child(2)  { left: 15vw; }
+.baloons img:nth-child(3)  { left: 25vw; }
+.baloons img:nth-child(4)  { left: 35vw; }
+.baloons img:nth-child(5)  { left: 45vw; }
+.baloons img:nth-child(6)  { left: 55vw; }
+.baloons img:nth-child(7)  { left: 65vw; }
+.baloons img:nth-child(8)  { left: 75vw; }
+.baloons img:nth-child(9)  { left: 85vw; }
+.baloons img:nth-child(10) { left: 10vw; }
+.baloons img:nth-child(11) { left: 20vw; }
+.baloons img:nth-child(12) { left: 30vw; }
+.baloons img:nth-child(13) { left: 40vw; }
+.baloons img:nth-child(14) { left: 50vw; }
+.baloons img:nth-child(15) { left: 60vw; }
+.baloons img:nth-child(16) { left: 70vw; }
+.baloons img:nth-child(17) { left: 80vw; }
+.baloons img:nth-child(18) { left: 90vw; }
+.baloons img:nth-child(19) { left: 50vw; }
 
 .eight svg {
   width: 25px;
@@ -264,40 +279,46 @@ body {
 @keyframes heartPulse {
   0%, 100% {
     transform: scale(1);
-    filter: blur(15px);
+    filter: blur(20px);
     opacity: 0.7;
   }
   50% {
     transform: scale(1.08); /* Gently expands outwards */
-    filter: blur(22px);     /* Smoothly blurs wider at peak pulse */
+    filter: blur(26px);     /* Smoothly blurs wider at peak pulse */
     opacity: 0.95;
   }
 }
 
-/* Media Queries */
+/* Media Queries (MOBILE PHONE ADAPTATIONS) */
 @media screen and (max-width: 500px) {
-  .four .text-box { width: 90%; }
+  .four .text-box { width: 85% !important; padding: 12px; }
   .text-box .fake-btn { right: 5px; bottom: -38px; }
   .idea-5 span { display: block; }
-  .idea-6 span { font-size: 10rem; }
+  .idea-6 span { font-size: 8rem; }
   
-  /* RESPONSIVE HEART: Downscales the picture smoothly into a mobile heart shape layout */
+  /* RESPONSIVE HEART (LARGER ON MOBILE TOO): Increased size smoothly from 180px to 240px */
   .six img {
-    width: 180px;
-    height: 180px;
-    clip-path: path("M 90,28.8 C 90,28.8 72,0 39.6,0 C 14.4,0 0,20.16 0,45.36 C 0,82.8 36,108 90,154.8 C 144,108 180,82.8 180,45.36 C 180,20.16 165.6,0 140.4,0 C 108,0 90,28.8 90,28.8 Z");
+    width: 240px !important;
+    height: 240px !important;
+    clip-path: path("M 120,38.4 C 120,38.4 96,0 52.8,0 C 19.2,0 0,26.88 0,60.48 C 0,110.4 48,144 120,206.4 C 192,144 240,110.4 240,60.48 C 240,26.88 220.8,0 187.2,0 C 144,0 120,38.4 120,38.4 Z") !important;
   }
   
-  /* RESPONSIVE MOBILE GLOW: Adjusts the background cloud sizing to fit the 180px shape container */
+  /* RESPONSIVE MOBILE GLOW: Matches background cloud sizing to the new mobile heart boundaries */
   .six::before {
-    width: 180px;
-    height: 180px;
-    clip-path: path("M 90,28.8 C 90,28.8 72,0 39.6,0 C 14.4,0 0,20.16 0,45.36 C 0,82.8 36,108 90,154.8 C 144,108 180,82.8 180,45.36 C 180,20.16 165.6,0 140.4,0 C 108,0 90,28.8 90,28.8 Z");
+    width: 240px !important;
+    height: 240px !important;
+    clip-path: path("M 120,38.4 C 120,38.4 96,0 52.8,0 C 19.2,0 0,26.88 0,60.48 C 0,110.4 48,144 120,206.4 C 192,144 240,110.4 240,60.48 C 240,26.88 220.8,0 187.2,0 C 144,0 120,38.4 120,38.4 Z") !important;
     top: 0;
-    filter: blur(12px);
+    filter: blur(15px);
+  }
+
+  /* Shrinks bubble portraits down slightly so they don't block the text on phone viewports */
+  .baloons img {
+    width: 75px !important;
+    height: 75px !important;
   }
   
-  .wish-hbd { font-size: 2.3em; }
-  .wish h5 { font-size: 1.4rem; }
-  .nine p { font-size: 1.5rem; }
+  .wish-hbd { font-size: 2em; margin-top: 10px; }
+  .wish h5 { font-size: 1.2rem; }
+  .nine p { font-size: 1.3rem; }
 }
