@@ -26,11 +26,6 @@ body {
   background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 80%);
 }
 
-.container div.six {
-  top: 10vh;
-  z-index: 1;
-}
-
 .container div.seven,
 .container div.eight {
   width: 100vw;
@@ -89,10 +84,10 @@ body {
   line-height: 1.4;
 }
 
-/* Keeps chatbox text characters invisible until they are typed out */
+/* FIXED SPACING: Changed to inline to keep animation letters flowing cleanly without eating spaces */
 .text-box span {
   visibility: hidden;
-  display: inline-block;
+  display: inline;
 }
 
 .text-box .fake-btn {
@@ -139,24 +134,54 @@ body {
   text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.5);
 }
 
-.six {
-  position: relative;
+/* FIXED & CENTERED: Pins the final reveal block precisely in the center of the monitor viewport */
+.container div.six {
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  z-index: 1;
 }
 
+/* FIXED LOVE SHAPE: Formats her photo into fixed dimensions and clips it into a smooth heart shape */
 .six img {
   display: inline-block;
-  max-width: 45%;
-  height: auto;
-  border-radius: 50%;
-  border: 5px solid #fff;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  clip-path: path("M 125,40 C 125,40 100,0 55,0 C 20,0 0,28 0,63 C 0,115 50,150 125,215 C 200,150 250,115 250,63 C 250,28 230,0 195,0 C 150,0 125,40 125,40 Z");
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 2; /* Sits on top of the glowing aura trail */
 }
 
-.six .hat {
+/* NEW: Injects a soft, pulsing romantic aura trail shaped exactly like a matching heart */
+.six::before {
+  content: "";
   position: absolute;
-  width: 80px;
-  top: -35px;
-  left: 41.5%;
+  top: 0;
+  width: 250px;
+  height: 250px;
+  clip-path: path("M 125,40 C 125,40 100,0 55,0 C 20,0 0,28 0,63 C 0,115 50,150 125,215 C 200,150 250,115 250,63 C 250,28 230,0 195,0 C 150,0 125,40 125,40 Z");
+  background: radial-gradient(circle, #ff477e 20%, #d11946 80%);
+  filter: blur(15px); /* Smooth neon cloud fog glow edge */
+  opacity: 0.75;
+  z-index: 1; /* Slips backward directly under her portrait image */
+  pointer-events: none;
+  animation: heartPulse 3s ease-in-out infinite; /* Living breathing heartbeat rhythm */
+}
+
+/* REMOVED HAT: Disabled the absolute holiday hat layout element as it clashes with the top heart valleys */
+.six .hat {
+  display: none;
 }
 
 .baloons img {
@@ -228,10 +253,25 @@ body {
   color: #d11946;
 }
 
+/* Background gradient shift keyframes */
 @keyframes romanticGlow {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Pulsing aura glow keyframes */
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: blur(15px);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.08); /* Gently expands outwards */
+    filter: blur(22px);     /* Smoothly blurs wider at peak pulse */
+    opacity: 0.95;
+  }
 }
 
 /* Media Queries */
@@ -240,7 +280,23 @@ body {
   .text-box .fake-btn { right: 5px; bottom: -38px; }
   .idea-5 span { display: block; }
   .idea-6 span { font-size: 10rem; }
-  .six .hat { width: 50px; top: -20px; }
+  
+  /* RESPONSIVE HEART: Downscales the picture smoothly into a mobile heart shape layout */
+  .six img {
+    width: 180px;
+    height: 180px;
+    clip-path: path("M 90,28.8 C 90,28.8 72,0 39.6,0 C 14.4,0 0,20.16 0,45.36 C 0,82.8 36,108 90,154.8 C 144,108 180,82.8 180,45.36 C 180,20.16 165.6,0 140.4,0 C 108,0 90,28.8 90,28.8 Z");
+  }
+  
+  /* RESPONSIVE MOBILE GLOW: Adjusts the background cloud sizing to fit the 180px shape container */
+  .six::before {
+    width: 180px;
+    height: 180px;
+    clip-path: path("M 90,28.8 C 90,28.8 72,0 39.6,0 C 14.4,0 0,20.16 0,45.36 C 0,82.8 36,108 90,154.8 C 144,108 180,82.8 180,45.36 C 180,20.16 165.6,0 140.4,0 C 108,0 90,28.8 90,28.8 Z");
+    top: 0;
+    filter: blur(12px);
+  }
+  
   .wish-hbd { font-size: 2.3em; }
   .wish h5 { font-size: 1.4rem; }
   .nine p { font-size: 1.5rem; }
